@@ -9,15 +9,20 @@
   <script src="Redux.js"></script>
   <script src="ReduxStoreFactory.js"></script>
   <script src="ReduxActionCreatorFactory.js"></script>
+  <script src="Pages/BrowserShortcut.js"></script>
 </head>
 
   <div id="app"></div>
+  <browser-shortcut-page></browser-shortcut-page>
   <script>
+    const {dispatch, getState} = ReduxStoreFactory();
+    const {setField} = ReduxActionCreatorFactory(dispatch);
 
-    const {dispatch, getState} = ReduxStoreFactory()
-    const {setField} = ReduxActionCreatorFactory(dispatch)
+    setField({ section: 'foo' })({ value: 'qux', field: "bar" });
 
-    setField({section: 'foo'})({value: 'qux', field: "bar"})
+    BrowserShortcutFactory({
+      setField: setField({section: 'BrowserShortcuts'})
+    })
 
   </script>
   <script src="TextInput.js"></script>
