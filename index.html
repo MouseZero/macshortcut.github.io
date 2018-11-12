@@ -5,10 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Mac Shortcuts Creator</title>
+  <script>IS_LOGGING = true</script>
+  <script src="Redux.js"></script>
+  <script src="ReduxStoreFactory.js"></script>
+  <script src="ReduxActionCreatorFactory.js"></script>
 </head>
-<body>
+
   <div id="app"></div>
-  <my-first-element text="I did it"></my-first-element>
-  <script src="main.js"></script>
+  <script>
+
+    const {dispatch, getState} = ReduxStoreFactory()
+    const {setField} = ReduxActionCreatorFactory(dispatch)
+
+    setField({section: 'foo'})({value: 'qux', field: "bar"})
+
+  </script>
+  <script src="TextInput.js"></script>
 </body>
 </html>
