@@ -5,28 +5,24 @@ function BrowserShortcutFactory({ setField }) {
       const shadow = this.attachShadow({ mode: "open" });
       const root = document.createElement("div");
       const field1 = this.input({ name: "test-field", setField });
-      root.appendChild(this.button());
+      root.appendChild(this.button({name: 'submit', setField}));
       root.appendChild(field1)
       shadow.appendChild(root);
-      shadow.buttonClick = function() {
-        console.log("shadow click");
-      };
     }
 
     input({ name, setField }) {
       const input = document.createElement("input");
       input.setAttribute("type", "text");
       input.setAttribute("name", name);
-      input.setField = setField;
-      input.setAttribute("onkeyup", "this.setField({field: this.name, value: this.value})");
+      input.addEventListener('keyup', (e) => setField({field: name, value: e.target.value}))
       return input;
     }
 
-    button() {
+    button({name, setField}) {
       const button = document.createElement("button");
+      button.setAttribute("name", name)
       button.setAttribute("type", "button");
-      button.setAttribute("onclick", "this.clicked()");
-      button.clicked = () => console.log("function from button");
+      button.addEventListener('click', () => alert('post the form'))
       button.textContent = "Click Me";
       return button;
     }
