@@ -3,36 +3,40 @@ function BrowserShortcutFactory({ setField }) {
     constructor() {
       super();
       const shadow = this.attachShadow({ mode: "open" });
-      const root = document.createElement("div");
-      const field1 = this.input({ name: "test-field", setField });
-      root.appendChild(this.button({name: 'submit', setField}));
-      root.appendChild(field1)
-      shadow.appendChild(root);
-    }
+      // const root = document.createElement("div");
+      // const field1 = this.input({ name: "test-field", setField });
+      // root.appendChild(this.button({name: 'submit', setField}));
+      // root.appendChild(field1)
+      // shadow.appendChild(root);
+      shadow.appendChild(CreateTextInput({
+        name: 'browser',
+        label: 'Browser',
+        setField
+      }))
 
-    input({ name, setField }) {
-      const input = document.createElement("input");
-      input.setAttribute("type", "text");
-      input.setAttribute("name", name);
-      input.addEventListener('keyup', (e) => setField({field: name, value: e.target.value}))
-      return input;
-    }
+      shadow.appendChild(CreateTextInput({
+        name: 'url',
+        label: 'URL',
+        setField
+      }))
 
-    button({name, setField}) {
-      const button = document.createElement("button");
-      button.setAttribute("name", name)
-      button.setAttribute("type", "button");
-      button.addEventListener('click', () => alert('post the form'))
-      button.textContent = "Click Me";
-      return button;
-    }
+      shadow.appendChild(CreateTextInput({
+        name: 'rc',
+        label: 'RC File',
+        setField
+      }))
 
-    writeToState() {
-      alert("you click the button");
-      // setField({
-      //   field: 'foo',
-      //   value: 'bar'
-      // })
+      shadow.appendChild(CreateTextInput({
+        name: 'commandName',
+        label: 'Command Name',
+        setField
+      }))
+
+      shadow.appendChild(CreateButton({
+        name: 'create-url',
+        label: 'Bashify',
+        onClick: () => alert('you clicked')
+      }))
     }
   }
   customElements.define("browser-shortcut-page", BrowserShortcut);
